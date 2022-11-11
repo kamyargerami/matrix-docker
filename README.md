@@ -1,15 +1,17 @@
-# Setup Matrix with docker-compose 
+# Setup Matrix with docker-compose
 
-This repository helps you to run your own messaging application.
+This repository helps you to run your messaging application.
 
-You can set up all you need for matrix in less than an hour. it will install below applications for you.
+You can set up all you need for the matrix in less than an hour. it will install the below applications for you.
 
 - Synapse
 - Element
-- PostgreSQL  
+- PostgreSQL
 - Coturn
 - Nginx
 - Traefik
+
+![ScreenShot](https://matrix.org/docs/guides/img/understanding-synapse-hosting-nginx.png)
 
 # Requirements
 
@@ -22,9 +24,9 @@ You can set up all you need for matrix in less than an hour. it will install bel
 2. Change domain in ``.env`` file to your domain
 
 3. Run ``docker-compose up`` and after 1 minute stop it to do the next action.
-   
-4. Edit the `/var/lib/docker/volumes/matrix_nginx_conf/_data/default.conf` and add these line in the bottom 
-   of the file before `}` then change the `examle.com` to your own domain.
+
+4. Edit the `/var/lib/docker/volumes/matrix_nginx_conf/_data/default.conf` and add these lines in the bottom
+   of the file before `}` then change the `examle.com` to your domain.
 
 ```
     location /.well-known/matrix/server {
@@ -46,8 +48,8 @@ You can set up all you need for matrix in less than an hour. it will install bel
 5. Edit the `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf` and add the below configuration:
 
 - Replace the `LongSecretKeyMustEnterHere` with a secure random password.
-- Replace `matrix.example.com` with your own domain
-- Change the `YourServerIP` to your server public ip address.
+- Replace `matrix.example.com` with your domain
+- Change the `YourServerIP` to your server's public IP address.
 
 ```
 use-auth-secret
@@ -63,14 +65,14 @@ cli-password=SomePasswordForCLI
 external-ip=YourServerIP
 ```
 
-6. Change the `example.com` with your domain in below command and run it
+6. Change the `example.com` with your domain in the below command and run it
 ```
 docker run -it --rm -v matrix_synapse_data:/data -e SYNAPSE_SERVER_NAME=example.com -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:v1.63.0 generate
 ```
 
 7. Edit `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file and change it as below:
 
-- You need to replace the database config to postgresql
+- You need to replace the database config to PostgreSQL
 
 Don't worry about the database security, this is not going to expose to the internet.
 
@@ -88,7 +90,7 @@ database:
     cp_max: 10
 ```
 
-- Add the coturn config to below the file
+- Add the coturn config to the file
 - Change all `example.com` to your domain address.
 - Change `LongSecretKeyMustEnterHere` to the secret key that you choose before in `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf`
 
@@ -103,29 +105,29 @@ turn_user_lifetime: 86400000
 turn_allow_guests: True
 ```
 
-8. Add these two subdomains to your dns provider:
+8. Add these two subdomains to your DNS provider:
 
 ```
 matrix.example.com
 web.examplw.com
 ```
 
-9. Run the containers with `docker-compose up` and if everything goes well stop it 
-   and run the `docker-compose up -d` to run these containers in background.
+9. Run the containers with `docker-compose up` and if everything goes well stop it
+   and run the `docker-compose up -d` to run these containers in the background.
 
 # Testing
 
-1. The matrix url (`https://matrix.example.com`) must show the synapse default page
-2. The nginx must respond in these two urls
+1. The matrix URL (`https://matrix.example.com`) must show the synapse default page
+2. The Nginx must respond to these two URLs
    - https://example.com/.well-known/matrix/client
    - https://example.com/.well-known/matrix/server
-3. You can test the federation on below link
+3. You can test the federation on the below link
    - https://federationtester.matrix.org/
-4. You can log in to your own Element client in `https://web.example.com`
-   
+4. You can log in to your Element client at `https://web.example.com`
+
 # Add new user
 
-You need to enter to the container with `docker exec -it matrix_synapse_1 bash`
+You need to enter the container with `docker exec -it matrix_synapse_1 bash`
 
 Run the below command to create a user.
 
@@ -142,17 +144,17 @@ Success!
 
 # Enable the registration
 
-By default, registration is disabled and users must be added using command line, but if you want to access 
-everybody to register in your matrix you can add below line to the end of `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file.
+By default, registration is disabled and users must be added using the command line, but if you want to access
+everybody to register in your matrix you can add the below line to the end of `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file.
 
 ```
 enable_registration: true
 enable_registration_without_verification: true
 ```
 
-Rerun the `docker-compose restart` to apply new setting.
-   
-If you need to have email verification enabled or captcha on registration you can read the link below:
+Rerun the `docker-compose restart` to apply the new setting.
+
+If you need to have email verification enabled or a captcha on registration you can read the link below:
 
 https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html#registration
 

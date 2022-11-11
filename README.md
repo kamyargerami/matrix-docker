@@ -25,7 +25,7 @@ You can set up all you need for the matrix in less than an hour. it will install
 
 ```
 matrix.example.com
-web.examplw.com
+web.example.com
 ```
 
 3. Change domain in ``.env`` file to your domain

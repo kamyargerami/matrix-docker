@@ -19,13 +19,13 @@ services:
       - "80:80"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - ./volumes/traefik_certs:/certs
+      - traefik_certs:/certs
 
   nginx:
     image: "nginx:${NGINX_VERSION}"
     restart: "always"
     volumes:
-      - ./volumes/nginx_conf:/etc/nginx/conf.d
+      - nginx_conf:/etc/nginx/conf.d
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.nginx.entrypoints=websecure"
@@ -39,7 +39,7 @@ services:
     environment:
       - SYNAPSE_CONFIG_PATH=/data/homeserver.yaml
     volumes:
-      - ./volumes/synapse_data:/data
+      - synapse_data:/data
     depends_on:
       - synapse_db
     labels:
@@ -57,13 +57,13 @@ services:
       - POSTGRES_PASSWORD=aComplexPassphraseNobodyCanGuess
       - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
     volumes:
-      - ./volumes/synapse_db_data:/var/lib/postgresql/data
+      - synapse_db_data:/var/lib/postgresql/data
 
   coturn:
     image: "instrumentisto/coturn:${COTURN_VERSION}"
     restart: "unless-stopped"
     volumes:
-      - ./volumes/coturn:/etc/coturn
+      - coturn:/etc/coturn
     ports:
       - "49160-49200:49160-49200/udp"
       - "3478:3478"
@@ -73,10 +73,18 @@ services:
     image: "vectorim/element-web:${ELEMENT_VERSION}"
     restart: unless-stopped
     volumes:
-      - ./volumes/element:/app
+      - element:/app
     labels:
       - traefik.enable=true
       - traefik.http.routers.element.entrypoints=websecure
       - traefik.http.routers.element.rule=Host(`web.${DOMAIN}`)
       - traefik.http.routers.element.tls=true
       - traefik.http.routers.element.tls.certresolver=letls
+
+volumes:
+  traefik_certs:
+  nginx_conf:
+  synapse_data:
+  synapse_db_data:
+  coturn:
+  element:

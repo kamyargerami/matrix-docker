@@ -17,7 +17,7 @@ You can set up all you need for matrix in less than an hour. it will install bel
 - Docker-compose
 
 # Installation
-1. Clone the repository
+1. Clone the repository and go to the `matrix` directory
 
 2. Change domain in ``.env`` file to your domain
 

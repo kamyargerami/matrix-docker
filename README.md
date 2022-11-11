@@ -21,7 +21,7 @@ You can set up all you need for the matrix in less than an hour. it will install
 # Installation
 1. Clone the repository and go to the `matrix` directory
 
-2. Add these two subdomains to your DNS provider:
+2. Add these two subdomains to your DNS:
 
 ```
 matrix.example.com

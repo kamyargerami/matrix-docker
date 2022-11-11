@@ -1,3 +1,5 @@
+![ScreenShot](https://matrix.org/docs/guides/img/understanding-synapse-hosting-nginx.png)
+
 # Setup Matrix with docker-compose
 
 This repository helps you to run your messaging application.
@@ -10,8 +12,6 @@ You can set up all you need for the matrix in less than an hour. it will install
 - Coturn
 - Nginx
 - Traefik
-
-![ScreenShot](https://matrix.org/docs/guides/img/understanding-synapse-hosting-nginx.png)
 
 # Requirements
 

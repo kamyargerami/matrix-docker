@@ -21,13 +21,13 @@ You can set up all you need for matrix in less than an hour. it will install bel
 
 2. Change domain in ``.env`` file to your domain
 
-3. Run ``docker-compose up`` and after a while stop it to do the next action.
+3. Run ``docker-compose up`` and after 1 minute stop it to do the next action.
 
 4. Change path to this repository and also change the domain and run the below command:
 
 
 ```
-docker run -it --rm -v /absolute/path/to/repository/volumes/synapse_data:/data -e SYNAPSE_SERVER_NAME=matrix.org -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:v1.63.0 generate
+docker run -it --rm -v /absolute/path/to/repository/matrix/volumes/synapse_data:/data -e SYNAPSE_SERVER_NAME=matrix.org -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:v1.63.0 generate
 ```
 
 5. Edit `volumes/synapse_data/homeserver.yaml` file and change it as below:

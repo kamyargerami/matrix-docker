@@ -46,12 +46,13 @@ You can set up all you need for matrix in less than an hour. it will install bel
 5. Edit the `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf` and add the below configuration:
 
 - Replace the `LongSecretKeyMustEnterHere` with a secure random password.
+- Replace `matrix.example.com` with your own domain
 - Change the `YourServerIP` to your server public ip address.
 
 ```
 use-auth-secret
 static-auth-secret=LongSecretKeyMustEnterHere
-realm=matrix.matrix.org
+realm=matrix.example.com
 listening-port=3478
 tls-listening-port=5349
 min-port=49160
@@ -70,6 +71,8 @@ docker run -it --rm -v matrix_synapse_data:/data -e SYNAPSE_SERVER_NAME=example.
 7. Edit `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file and change it as below:
 
 - You need to replace the database config to postgresql
+
+Don't worry about the database security, this is not going to expose to the internet.
 
 ```
 database:
@@ -95,7 +98,6 @@ turn_uris:
   - "turn:matrix.example.com:3478?transport=tcp"
   - "turns:matrix.example.com:3478?transport=udp"
   - "turns:matrix.example.com:3478?transport=tcp"
-
 turn_shared_secret: "LongSecretKeyMustEnterHere"
 turn_user_lifetime: 86400000
 turn_allow_guests: True
@@ -119,7 +121,41 @@ web.examplw.com
    - https://example.com/.well-known/matrix/server
 3. You can test the federation on below link
    - https://federationtester.matrix.org/
+4. You can log in to your own Element client in `https://web.example.com`
    
+# Add new user
+
+You need to enter to the container with `docker exec -it matrix_synapse_1 bash`
+
+Run the below command to create a user.
+
+```
+register_new_matrix_user -c /data/homeserver.yaml http://localhost:8008
+
+New user localpart [root]: myuserid 
+Password: 
+Confirm password: 
+Make admin [no]: 
+Sending registration request...
+Success!
+```
+
+# Enable the registration
+
+By default, registration is disabled and users must be added using command line, but if you want to access 
+everybody to register in your matrix you can add below line to the end of `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file.
+
+```
+enable_registration: true
+enable_registration_without_verification: true
+```
+
+Rerun the `docker-compose restart` to apply new setting.
+   
+If you need to have email verification enabled or captcha on registration you can read the link below:
+
+https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html#registration
+
 ## For more information you can watch the tutorials.
 
 https://www.youtube.com/watch?v=JCsw1bbBjAM

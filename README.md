@@ -23,7 +23,7 @@ You can set up all you need for matrix in less than an hour. it will install bel
 
 3. Run ``docker-compose up`` and after 1 minute stop it to do the next action.
    
-7. Edit the `/var/lib/docker/volumes/matrix_nginx_conf/_data/default.conf` and add these line in the bottom 
+4. Edit the `/var/lib/docker/volumes/matrix_nginx_conf/_data/default.conf` and add these line in the bottom 
    of the file before `}` then change the `examle.com` to your own domain.
 
 ```
@@ -43,7 +43,7 @@ You can set up all you need for matrix in less than an hour. it will install bel
 ```
 
 
-6. Edit the `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf` and add the below configuration:
+5. Edit the `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf` and add the below configuration:
 
 - Replace the `LongSecretKeyMustEnterHere` with a secure random password.
 - Change the `YourServerIP` to your server public ip address.
@@ -62,12 +62,12 @@ cli-password=SomePasswordForCLI
 external-ip=YourServerIP
 ```
 
-3. Change the `example.com` with your domain in below command and run it
+6. Change the `example.com` with your domain in below command and run it
 ```
 docker run -it --rm -v matrix_synapse_data:/data -e SYNAPSE_SERVER_NAME=example.com -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:v1.63.0 generate
 ```
 
-5. Edit `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file and change it as below:
+7. Edit `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file and change it as below:
 
 - You need to replace the database config to postgresql
 
@@ -111,12 +111,19 @@ web.examplw.com
 9. Run the containers with `docker-compose up` and if everything goes well stop it 
    and run the `docker-compose up -d` to run these containers in background.
 
+# Testing
+
+1. The matrix url (`https://matrix.example.com`) must show the synapse default page
+2. The nginx must respond in these two urls
+   - https://example.com/.well-known/matrix/client
+   - https://example.com/.well-known/matrix/server
+3. You can test the federation on below link
+   - https://federationtester.matrix.org/
+   
 ## For more information you can watch the tutorials.
 
 https://www.youtube.com/watch?v=JCsw1bbBjAM
 
 https://matrix.org/docs/guides/understanding-synapse-hosting
-
-https://federationtester.matrix.org/
 
 https://gist.github.com/matusnovak/37109e60abe79f4b59fc9fbda10896da?permalink_comment_id=3626248#optional-turn-server-video-calls

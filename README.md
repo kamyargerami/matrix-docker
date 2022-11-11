@@ -21,11 +21,18 @@ You can set up all you need for the matrix in less than an hour. it will install
 # Installation
 1. Clone the repository and go to the `matrix` directory
 
-2. Change domain in ``.env`` file to your domain
+2. Add these two subdomains to your DNS provider:
 
-3. Run ``docker-compose up`` and after 1 minute stop it to do the next action.
+```
+matrix.example.com
+web.examplw.com
+```
 
-4. Edit the `/var/lib/docker/volumes/matrix_nginx_conf/_data/default.conf` and add these lines in the bottom
+3. Change domain in ``.env`` file to your domain
+
+4. Run ``docker-compose up`` and after 1 minute stop it to do the next action.
+
+5. Edit the `/var/lib/docker/volumes/matrix_nginx_conf/_data/default.conf` and add these lines in the bottom
    of the file before `}` then change the `examle.com` to your domain.
 
 ```
@@ -45,7 +52,7 @@ You can set up all you need for the matrix in less than an hour. it will install
 ```
 
 
-5. Edit the `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf` and add the below configuration:
+6. Edit the `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf` and add the below configuration:
 
 - Replace the `LongSecretKeyMustEnterHere` with a secure random password.
 - Replace `matrix.example.com` with your domain
@@ -65,12 +72,12 @@ cli-password=SomePasswordForCLI
 external-ip=YourServerIP
 ```
 
-6. Change the `example.com` with your domain in the below command and run it
+7. Change the `example.com` with your domain in the below command and run it
 ```
 docker run -it --rm -v matrix_synapse_data:/data -e SYNAPSE_SERVER_NAME=example.com -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:v1.63.0 generate
 ```
 
-7. Edit `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file and change it as below:
+8. Edit `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file and change it as below:
 
 - You need to replace the database config to PostgreSQL
 
@@ -103,13 +110,6 @@ turn_uris:
 turn_shared_secret: "LongSecretKeyMustEnterHere"
 turn_user_lifetime: 86400000
 turn_allow_guests: True
-```
-
-8. Add these two subdomains to your DNS provider:
-
-```
-matrix.example.com
-web.examplw.com
 ```
 
 9. Run the containers with `docker-compose up` and if everything goes well stop it

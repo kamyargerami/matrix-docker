@@ -1,5 +1,5 @@
 /.idea
 /.vscode
-matrix/volumes
-matrix/.env
-matrix/.env.backup
+/matrix/volumes
+/matrix/.env
+/matrix/.env.backup

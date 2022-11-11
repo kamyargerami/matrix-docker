@@ -133,13 +133,6 @@ Run the below command to create a user.
 
 ```
 register_new_matrix_user -c /data/homeserver.yaml http://localhost:8008
-
-New user localpart [root]: myuserid 
-Password: 
-Confirm password: 
-Make admin [no]: 
-Sending registration request...
-Success!
 ```
 
 # Enable the registration
@@ -152,7 +145,7 @@ enable_registration: true
 enable_registration_without_verification: true
 ```
 
-Rerun the `docker-compose restart` to apply the new setting.
+Run the `docker-compose restart` to apply the new setting.
 
 If you need to have email verification enabled or a captcha on registration you can read the link below:
 

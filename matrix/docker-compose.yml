@@ -27,11 +27,12 @@ services:
     volumes:
       - nginx_conf:/etc/nginx/conf.d
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.nginx.entrypoints=websecure"
-      - "traefik.http.routers.nginx.rule=Host(`${DOMAIN}`)"
-      - "traefik.http.routers.nginx.tls=true"
-      - "traefik.http.routers.nginx.tls.certresolver=letls"
+      - traefik.enable=true
+      - traefik.http.routers.nginx.entrypoints=websecure
+      - traefik.http.routers.nginx.rule=Host(`${DOMAIN}`)
+      - traefik.http.routers.nginx.tls=true
+      - traefik.http.routers.nginx.tls.certresolver=letls
+      - traefik.http.routers.traefik.tls=true
 
   synapse:
     image: "docker.io/matrixdotorg/synapse:${SYNAPSE_VERSION}"
@@ -48,6 +49,7 @@ services:
       - traefik.http.routers.synapse.rule=Host(`matrix.${DOMAIN}`)
       - traefik.http.routers.synapse.tls=true
       - traefik.http.routers.synapse.tls.certresolver=letls
+      - traefik.http.routers.traefik.tls=true
 
   synapse_db:
     image: "docker.io/postgres:${POSTGRES_VERSION}"
@@ -80,6 +82,7 @@ services:
       - traefik.http.routers.element.rule=Host(`web.${DOMAIN}`)
       - traefik.http.routers.element.tls=true
       - traefik.http.routers.element.tls.certresolver=letls
+      - traefik.http.routers.traefik.tls=true
 
 volumes:
   traefik_certs:

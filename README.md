@@ -32,7 +32,7 @@ web.example.com
 
 ---
 
-3. Copy `.env.example` to `.env` and change domain in `.env` file to your domain
+3. Copy `.env.example` to `.env` and change `DOMAIN` in `.env` file to your domain
 
 ---
 

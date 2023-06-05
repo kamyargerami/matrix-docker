@@ -85,7 +85,7 @@ external-ip=YourServerIP
 
 7. Change the `example.com` with your domain in the below command and run it
 ```
-docker run -it --rm -v matrix_synapse_data:/data -e SYNAPSE_SERVER_NAME=example.com -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:v1.63.0 generate
+docker run -it --rm -v matrix_synapse_data:/data -e SYNAPSE_SERVER_NAME=example.com -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:v1.84.1 generate
 ```
 
 ---

@@ -122,7 +122,7 @@ turn_uris:
   - "turns:matrix.example.com:3478?transport=tcp"
 turn_shared_secret: "LongSecretKeyMustEnterHere"
 turn_user_lifetime: 86400000
-turn_allow_guests: True
+turn_allow_guests: False
 ```
 
 ---

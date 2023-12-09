@@ -1,4 +1,4 @@
-![ScreenShot]([logo.png))
+![ScreenShot](logo.png)
 
 # Setup Matrix with docker-compose
 

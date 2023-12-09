@@ -1,4 +1,4 @@
-![ScreenShot]([https://matrix.org/docs/guides/img/understanding-synapse-hosting-nginx.png](https://matrix.org/images/matrix-logo-white.svg))
+![ScreenShot]([logo.png))
 
 # Setup Matrix with docker-compose
 

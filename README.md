@@ -2,9 +2,9 @@
 
 # Setup Matrix with docker-compose
 
-This repository helps you to run your messaging application.
+This repository helps you run your messaging application.
 
-You can set up all you need for the matrix in less than an hour. it will install the below applications for you.
+You can set up all you need for the matrix in less than an hour. It will install the following applications for you.
 
 - Synapse
 - Element
@@ -41,7 +41,7 @@ web.example.com
 ---
 
 5. Edit the `/var/lib/docker/volumes/matrix_nginx_conf/_data/default.conf` and add these lines in the bottom
-   of the file before `}` then change the `examle.com` to your domain.
+   of the file before `}`, then change the `example.com` to your domain.
 
 ```
     location /.well-known/matrix/server {
@@ -112,7 +112,7 @@ database:
 
 - Add the coturn config to the file
 - Change all `example.com` to your domain address.
-- Change `LongSecretKeyMustEnterHere` to the secret key that you choose before in `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf`
+- Change `LongSecretKeyMustEnterHere` to the secret key that you chose before in `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf`
 
 ```
 turn_uris:
@@ -127,16 +127,16 @@ turn_allow_guests: False
 
 ---
 
-9. Run the containers with `docker-compose up` and if everything goes well stop it
+9. Run the containers with `docker-compose up` and if everything goes well, stop it
    and run the `docker-compose up -d` to run these containers in the background.
 
 # Testing
 
 1. The matrix URL (`https://matrix.example.com`) must show the synapse default page
-2. The Nginx must respond to these two URLs
+2. Nginx must respond to these two URLs
    - https://example.com/.well-known/matrix/client
    - https://example.com/.well-known/matrix/server
-3. You can test the federation on the below link
+3. You can test the federation on the link below
    - https://federationtester.matrix.org/
 4. You can log in to your Element client at `https://web.example.com`
 
@@ -152,8 +152,8 @@ register_new_matrix_user -c /data/homeserver.yaml http://localhost:8008
 
 # Enable the registration
 
-By default, registration is disabled and users must be added using the command line, but if you want to access
-everybody to register in your matrix you can add the below line to the end of `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file.
+By default, registration is disabled, and users must be added using the command line. If you want to allow
+everybody to register in your matrix, you can add the below line to the end of `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file.
 
 ```
 enable_registration: true
@@ -162,11 +162,11 @@ enable_registration_without_verification: true
 
 Run the `docker-compose restart` to apply the new setting.
 
-If you need to have email verification enabled or a captcha on registration you can read the link below:
+If you need to have email verification enabled or a captcha on registration, you can read the link below:
 
 https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html#registration
 
-## For more information you can watch the tutorials.
+## For more information, you can watch the tutorials.
 
 https://www.youtube.com/watch?v=JCsw1bbBjAM
 

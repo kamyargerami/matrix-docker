@@ -92,9 +92,9 @@ docker run -it --rm -v matrix_synapse_data:/data -e SYNAPSE_SERVER_NAME=example.
 
 8. Edit `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file and change it as below:
 
-- You need to replace the database config to PostgreSQL
+- You need to replace the database config with PostgreSQL
 
-Don't worry about the database security, this is not going to expose to the internet.
+Don't worry about the database security, this is not going to be exposed to the internet.
 
 ```
 database:
@@ -110,7 +110,7 @@ database:
     cp_max: 10
 ```
 
-- Add the coturn config to the file
+- Add below configuratuin to the end of file
 - Change all `example.com` to your domain address.
 - Change `LongSecretKeyMustEnterHere` to the secret key that you chose before in `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf`
 

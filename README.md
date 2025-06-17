@@ -85,7 +85,7 @@ external-ip=YourServerIP
 
 7. Change the `example.com` with your domain in the below command and run it
 ```
-docker run -it --rm -v matrix_synapse_data:/data -e SYNAPSE_SERVER_NAME=example.com -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:v1.84.1 generate
+docker run -it --rm -v matrix_synapse_data:/data -e SYNAPSE_SERVER_NAME=example.com -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:latest generate
 ```
 
 ---
@@ -110,7 +110,7 @@ database:
     cp_max: 10
 ```
 
-- Add below configuratuin to the end of file
+- Add below configuration to the end of the file
 - Change all `example.com` to your domain address.
 - Change `LongSecretKeyMustEnterHere` to the secret key that you chose before in `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf`
 

@@ -112,7 +112,7 @@ database:
 
 - Add below configuration to the end of the file
 - Change all `example.com` to your domain address.
-- Change `LongSecretKeyMustEnterHere` to the secret key that you chose before in `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf`
+- Change `LongSecretKeyMustEnterHere` to the secret key that you chose before in `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml`
 
 ```
 turn_uris:

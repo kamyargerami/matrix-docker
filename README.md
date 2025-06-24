@@ -127,7 +127,7 @@ turn_allow_guests: False
 
 ---
 
-9. Run the containers with `docker-compose up` and if everything goes well, stop it
+9. Run the containers with `docker-compose up` and if everything goes well, stop them
    and run the `docker-compose up -d` to run these containers in the background.
 
 # Testing
@@ -142,12 +142,10 @@ turn_allow_guests: False
 
 # Add new user
 
-You need to enter the container with `docker exec -it matrix_synapse_1 bash`
-
 Run the below command to create a user.
 
 ```
-register_new_matrix_user -c /data/homeserver.yaml http://localhost:8008
+docker exec -it matrix_synapse_1 register_new_matrix_user -c /data/homeserver.yaml http://localhost:8008
 ```
 
 # Enable the registration

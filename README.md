@@ -140,7 +140,7 @@ turn_allow_guests: False
    - https://federationtester.matrix.org/
 4. You can log in to your Element client at `https://web.example.com`
 
-# Add new user
+# Add new user```
 
 Run the below command to create a user.
 
@@ -164,6 +164,19 @@ If you need to have email verification enabled or a captcha on registration, you
 
 https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html#registration
 
+# Configure the Element to use your homeserver address by default
+
+Element uses matrix.org as default homeserver, if you are not able to access matrix.org , the element shows white screen and it loads after 60 seconds.
+
+Edit `/var/lib/docker/volumes/matrix_element/_data/config.json` and change the url at `line 4` to your domain
+```
+"base_url": "https://matrix.example.com"
+```
+
+Then you need to restart the element container by:
+```
+docker-compose restart element
+```
 ## For more information, you can watch the tutorials.
 
 https://www.youtube.com/watch?v=JCsw1bbBjAM

@@ -140,7 +140,7 @@ turn_allow_guests: False
    - https://federationtester.matrix.org/
 4. You can log in to your Element client at `https://web.example.com`
 
-# Add new user```
+# Add new user
 
 Run the below command to create a user.
 

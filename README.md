@@ -30,7 +30,7 @@ web.example.com
 # Automatic Installation
 You can simply setup the matrix with all dependencies using below command: (We recommend using Ubuntu server for high compatibility)
 ```shell
-sudo ./setup.sh <your-domain.com> <your-server-ip> <postgres-password>
+sudo bash setup.sh <your-domain.com> <your-server-ip> <postgres-password>
 ```
 
 Well done! Read the [Testing](#testing) section :)

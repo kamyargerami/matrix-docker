@@ -18,29 +18,41 @@ You can set up all you need for the matrix in less than an hour. It will install
 - Docker
 - Docker-compose
 
-# Installation
-1. Add these two subdomains to your DNS:
+# Setup DNS records
+You need to have a domain; and you need to add two subdomains (A record) to it.
 
 ```
+example.com
 matrix.example.com
 web.example.com
 ```
 
+# Automatic Installation
+You can simply setup the matrix with all dependencies using below command: (We recommend using Ubuntu server for high compatibility)
+```shell
+sudo ./setup.sh <your-domain.com> <your-server-ip> <postgres-password>
+```
+
+Well done! Read the [Testing](#testing) section :)
+
+# Manual Installation
+If you like to do all the actions by yourself follow these steps:
+
 ---
 
-2. Clone the repository and go to the `matrix` directory
+1. Clone the repository and go to the `matrix` directory
 
 ---
 
-3. Copy `.env.example` to `.env` and change `DOMAIN` in `.env` file to your domain
+2. Copy `.env.example` to `.env` and change `DOMAIN` in `.env` file to your domain
 
 ---
 
-4. Run ``docker-compose up`` and after 1 minute stop it to do the next action.
+3. Run ``docker-compose up`` and after 1 minute stop it to do the next action.
 
 ---
 
-5. Edit the `/var/lib/docker/volumes/matrix_nginx_conf/_data/default.conf` and add these lines in the bottom
+4. Edit the `/var/lib/docker/volumes/matrix_nginx_conf/_data/default.conf` and add these lines in the bottom
    of the file before `}`, then change the `example.com` to your domain.
 
 ```
@@ -61,7 +73,7 @@ web.example.com
 
 ---
 
-6. Edit the `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf` and add the below configuration:
+5. Edit the `/var/lib/docker/volumes/matrix_coturn/_data/turnserver.conf` and add the below configuration:
 
 - Replace the `LongSecretKeyMustEnterHere` with a secure random password.
 - Replace `matrix.example.com` with your domain
@@ -83,14 +95,14 @@ external-ip=YourServerIP
 
 ---
 
-7. Change the `example.com` with your domain in the below command and run it
+6. Change the `example.com` with your domain in the below command and run it
 ```
 docker run -it --rm -v matrix_synapse_data:/data -e SYNAPSE_SERVER_NAME=example.com -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:latest generate
 ```
 
 ---
 
-8. Edit `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file and change it as below:
+7. Edit `/var/lib/docker/volumes/matrix_synapse_data/_data/homeserver.yaml` file and change it as below:
 
 - You need to replace the database config with PostgreSQL
 
@@ -104,7 +116,7 @@ database:
     user: synapse
     password: aComplexPassphraseNobodyCanGuess
     database: synapse
-    host: matrix_synapse_db_1
+    host: synapse_db
     port: 5432
     cp_min: 5
     cp_max: 10
@@ -127,18 +139,8 @@ turn_allow_guests: False
 
 ---
 
-9. Run the containers with `docker-compose up` and if everything goes well, stop them
+8. Run the containers with `docker-compose up` and if everything goes well, stop them
    and run the `docker-compose up -d` to run these containers in the background.
-
-# Testing
-
-1. The matrix URL (`https://matrix.example.com`) must show the synapse default page
-2. Nginx must respond to these two URLs
-   - https://example.com/.well-known/matrix/client
-   - https://example.com/.well-known/matrix/server
-3. You can test the federation on the link below
-   - https://federationtester.matrix.org/
-4. You can log in to your Element client at `https://web.example.com`
 
 # Add new user
 
@@ -177,6 +179,17 @@ Then you need to restart the element container by:
 ```
 docker-compose restart element
 ```
+
+# Testing
+
+1. The matrix URL (`https://matrix.example.com`) must show the synapse default page
+2. Nginx must respond to these two URLs
+    - https://example.com/.well-known/matrix/client
+    - https://example.com/.well-known/matrix/server
+3. You can test the federation on the link below
+    - https://federationtester.matrix.org/
+4. You can log in to your Element client at `https://web.example.com`
+
 ## For more information, you can watch the tutorials.
 
 https://www.youtube.com/watch?v=JCsw1bbBjAM
@@ -184,3 +197,21 @@ https://www.youtube.com/watch?v=JCsw1bbBjAM
 https://matrix.org/docs/guides/understanding-synapse-hosting
 
 https://gist.github.com/matusnovak/37109e60abe79f4b59fc9fbda10896da?permalink_comment_id=3626248#optional-turn-server-video-calls
+
+## Stop services
+It's just stop containers
+```shell
+docker-compose -f matrix/docker-compose.yml down
+```
+
+You can run services again with
+
+```shell
+docker-compose -f matrix/docker-compose.yml up -d
+```
+
+## Stop services with DELETE all matrix data
+It will removes docker containers with all volumes
+```shell
+docker-compose -f matrix/docker-compose.yml down -v
+```
